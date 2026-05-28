@@ -104,6 +104,9 @@ function filterUnfundedOnly() {
 
     // use the function we previously created to add the unfunded games to the DOM
     addGamesToPage(listOfUnfunded);
+
+    //add almost there highlight to games less than 6k away from meeting goal
+    addAlmostThereHighlight(listOfUnfunded);
 }
 
 
@@ -126,6 +129,9 @@ function showAllGames() {
 
     // add all games from the JSON data to the DOM
     addGamesToPage(GAMES_JSON);
+
+    //add almost there highlight to games less than 6k away from meeting goal
+    addAlmostThereHighlight(GAMES_JSON);    
 }
 
 // select each button in the "Our Games" section
@@ -191,21 +197,19 @@ console.log(sortedGames[i].name);
 }
 
 // add a little highlight in the corner if the game has almost reached its goal
-function addAlmostThereHighlight() {
+function addAlmostThereHighlight(games) {
     const gameCards = document.querySelectorAll('.game-card');
     
     // check each game's difference between goal and pledged
-    GAMES_JSON.forEach((game, i) => {
+    games.forEach((game, i) => {
         const difference = game.goal - game.pledged;
         
         // add a div inside gamecard with a almost there class if less than 6000 left to meet goal
         if (difference > 0 && difference < 6000) {
             const badge = document.createElement('div');
-            badge.classList.add('almost-there');
-            badge.innerHTML = '🔥 Almost there!';
+            badge.classList.add('getting-popular');
+            badge.innerHTML = `🔥 Hot Now!`;
             gameCards[i].appendChild(badge);
         }
     });
 }
-
-addAlmostThereHighlight();
